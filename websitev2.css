@@ -1,0 +1,52 @@
+
+
+
+
+.options {
+  display: flex;
+  justify-content: center;
+  width: 350px;
+  border: 4px solid #888;
+  border-radius: 10px;
+  padding: 9px;
+  margin: 5px 0px;
+  cursor: pointer;
+  background-color: #ccc;
+  color: #444;
+}
+.true {
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  border: 4px solid #888;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px 0px;
+  cursor: pointer;
+  background-color: #ccc;
+  color: #444;
+}
+.red {
+  background-color: #8e0000;
+  color: #000000;
+}
+.green {
+  background-color: #1e8500;
+  color: #000000;
+}
+
+.contadorVitorias {
+  color: green;
+  font-weight: bold;
+  font-size: 24px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.contadorDerrotas {
+  color: #b60b0b;
+  font-weight: bold;
+  font-size: 24px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.equation {
+    text-align: center;
+}
