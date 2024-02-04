@@ -1,2 +1,0 @@
-# EquationGame
-Math game
