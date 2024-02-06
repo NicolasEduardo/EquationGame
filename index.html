@@ -5,15 +5,236 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Basic equations</title>
   <link rel="stylesheet" type="text/css" href="websitev2.css" />
+  <style>
+
+
+
+
+.options {
+  display: flex;
+  justify-content: center;
+  width: 350px;
+  border: 4px solid #888;
+  border-radius: 10px;
+  padding: 9px;
+  margin: 5px 0px;
+  cursor: pointer;
+  background-color: #ccc;
+  color: #444;
+}
+.true {
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  border: 4px solid #888;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px 0px;
+  cursor: pointer;
+  background-color: #ccc;
+  color: #444;
+}
+.red {
+  background-color: #8e0000;
+  color: #000000;
+}
+.green {
+  background-color: #1e8500;
+  color: #000000;
+}
+
+.contadorVitorias {
+  color: darkgreen;
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.contadorDerrotas {
+  color: #b60b0b;
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.equation {
+    text-align: center;
+}
+.temporizador {
+  font-size: 50px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 5px;
+}
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Define a altura para ocupar toda a altura da tela */
+}
+
+.startButton {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 20px 40px; /* Ajuste o padding para aumentar o tamanho do botão */
+  text-align: center;
+  text-decoration: none;
+  display: block; /* Alterado para block para ocupar a largura total do contêiner */
+  font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+}
+
+.startButton:hover {
+  background-color: #45a049;
+}
+
+.tempo-esgotado {
+  font-size: 30px;
+  text-align: center;
+  color: #b60b0b;
+  font-weight: bold;
+  margin-top: 20px;
+  animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+
+  </style>
 </head>
 <body>
-  <h1 class="equation" id="equation">undefined.</h1>
-  <div id="c1" class="options c1">undefined</div>
-  <div id="c2" class="options c1">undefined</div>
-  <div id="c3" class="options c1">undefined</div>
-  <div id="c4" class="options c1">undefined</div>
-  <h2 class="contadorVitorias" id="win">ACERTOS: 0</h2>
-  <h2 class="contadorDerrotas" id="defeat">ERROS: 0</h2>
-  <script src="websitev2.js"></script>
+    <p style="text-align:center;">Creator: Nicolas</p>
+<h1 class="rules" style="text-align:center;">REGRAS DO MATH GAME</h1>
+  <p class="rules" style="text-align:center;">1 - QUANDO VOCÊ APERTAR EM INICIAR, TERÁ 5 SEGUNDOS PARA RESOLVER A EQUAÇÃO, CASO ELA SEJA RESPONDIDA CERTA, O SEU CONTADOR DE ACERTOS SERÁ ACRESCENTADO EM 1.</p>
+  <p class="rules" style="text-align:center;">2 - TODA VEZ QUE VOCÊ ERRAR, O SEU CONTADOR DE DERROTAS SERÁ ACRESCENTADO EM 1.</p>
+  <p class="rules" style="text-align:center;">3 - E CASO O TEMPO SE ESGOTE, O CONTADOR SERÁ ACRESCENTADO EM 5!!!</p>
+  <button class="startButton" id="startButton" onclick="mostrarTudo()">Iniciar</button>
+  <h1 class="equation" id="equation" style="display: none;">undefined.</h1>
+  <div id="c1" class="options c1" style="display: none;">undefined</div>
+  <div id="c2" class="options c1" style="display: none;">undefined</div>
+  <div id="c3" class="options c1" style="display: none;">undefined</div>
+  <div id="c4" class="options c1" style="display: none;">undefined</div>
+  <p id="temporizador" class="temporizador" style="display: none;">5</p>
+  <h2 class="contadorVitorias" id="win" style="display: none;">ACERTOS: 0</h2>
+  <h2 class="contadorDerrotas" id="defeat" style="display: none;">ERROS: 0</h2>
+  <p id="mensagemTempoEsgotado" class="tempo-esgotado" style="display: none;"></p>
+  <p id="controlador" class="off" style="display: none;"></p>
+  <script>
+function mostrarTudo() {
+  document.getElementById("equation").style.display = "block";
+  document.getElementById("c1").style.display = "block";
+  document.getElementById("c2").style.display = "block";
+  document.getElementById("c3").style.display = "block";
+  document.getElementById("c4").style.display = "block";
+  document.getElementById("temporizador").style.display = "block";
+  document.getElementById("win").style.display = "block";
+  document.getElementById("defeat").style.display = "block";
+  document.getElementById("controlador").style.display = "block";
+  
+  var elements = document.getElementsByClassName("rules");
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].style.display = "none"; // Esconde as regras
+  }
+  document.getElementById("startButton").style.display = "none"; // Esconde o botão "Iniciar"
+  playAgain();
+}
+
+const controlador1 = document.querySelector("#controlador");
+let numeroAleatorio1 = 0;
+let numeroAleatorio2 = 0;
+let result = 0;
+let contadorWin = contadorDefeat = 0;
+let clickHabilitado = true;
+
+function playAgain() {
+  let operators = ["+", "-"];
+  let elementP = document.querySelector("#equation");
+  numeroAleatorio1 = Math.floor(Math.random() * 100) + 1;
+  numeroAleatorio2 = Math.floor(Math.random() * 100) + 1;
+  let numeroAleatorio03 = Math.floor(Math.random() * 2);
+  let numeroAleatorio4 = Math.floor(Math.random() * 4) + 1;
+
+  elementP.innerHTML = numeroAleatorio1 + operators[numeroAleatorio03] + numeroAleatorio2;
+  if (numeroAleatorio03 == 0) {
+    result = numeroAleatorio1 + numeroAleatorio2;
+  } else if (numeroAleatorio03 == 1) {
+    result = numeroAleatorio1 - numeroAleatorio2;
+  }
+  let verdadeiro = document.querySelector("#c" + numeroAleatorio4);
+  verdadeiro.innerHTML = result;
+  verdadeiro.classList = "verdadeiro";
+  let allElements = [...document.querySelectorAll("div")];
+  allElements.map((e) => {
+    if (e.innerHTML == result) {
+      e.classList = "verdadeiro";
+    } else {
+      let numeroAleatorio200 = Math.floor(Math.random() * 200) + 1;
+      e.innerHTML = numeroAleatorio200;
+    }
+    e.addEventListener("click", () => verificarResposta(e))
+    e.classList = "options c1";
+  });
+
+  startTimer(); // Inicia o temporizador após gerar uma nova equação
+}
+let interval
+function startTimer() {
+  var count = 5;
+  clearInterval(interval);
+  interval = setInterval(function() {
+    if (count >= 0) {
+      document.getElementById("temporizador").innerHTML = count;
+      count--;
+    } else {
+      clearInterval(interval);
+      let derrotas = document.querySelector("#defeat");
+      contadorDefeat += 5;
+      derrotas.innerHTML = "DERROTAS: " + contadorDefeat;
+      document.getElementById("mensagemTempoEsgotado").innerHTML = "TEMPO ESGOTADO, +5 DERROTAS.";
+      document.getElementById("mensagemTempoEsgotado").style.display = "block";
+      setTimeout(function() {
+        document.getElementById("mensagemTempoEsgotado").style.display = "none";
+        playAgain();
+      }, 2000);
+    }
+  }, 1000);
+}
+
+
+
+function verificarResposta(e) {
+  if (clickHabilitado) {
+    clickHabilitado = false;
+    setTimeout(() => {
+      clickHabilitado = true;
+    }, 1000);
+    
+    if (e.innerHTML == result) {
+      e.classList = "options green";
+      e.innerHTML = "CORRETO!";
+      let acertos=document.querySelector("#win")
+      contadorWin+=1
+      acertos.innerHTML="ACERTOS: "+ contadorWin
+      setTimeout(playAgain, 500);
+    } else {
+      let erros=document.querySelector("#defeat")
+      contadorDefeat+=1
+      e.classList = "options red";
+      erros.innerHTML="ERROS: " + contadorDefeat
+    }
+  }
+}
+  </script>
 </body>
 </html>
