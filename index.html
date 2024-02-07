@@ -3,13 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Basic equations</title>
-  <link rel="stylesheet" type="text/css" href="websitev2.css" />
+  <title>Botão com Animação RGB</title>
   <style>
-
-
-
-
 .options {
   display: flex;
   justify-content: center;
@@ -22,6 +17,7 @@
   background-color: #ccc;
   color: #444;
 }
+
 .true {
   display: flex;
   justify-content: center;
@@ -34,10 +30,12 @@
   background-color: #ccc;
   color: #444;
 }
+
 .red {
   background-color: #8e0000;
   color: #000000;
 }
+
 .green {
   background-color: #1e8500;
   color: #000000;
@@ -49,15 +47,18 @@
   font-size: 30px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
 .contadorDerrotas {
   color: #b60b0b;
   font-weight: bold;
   font-size: 30px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
 .equation {
-    text-align: center;
+  text-align: center;
 }
+
 .temporizador {
   font-size: 50px;
   text-align: center;
@@ -67,6 +68,7 @@
   padding: 10px;
   border-radius: 5px;
 }
+
 .center-container {
   display: flex;
   align-items: center;
@@ -75,21 +77,42 @@
 }
 
 .startButton {
-  background-color: #4CAF50;
+  padding: 20px 40px;
+  font-size: 24px;
   border: none;
-  color: white;
-  padding: 20px 40px; /* Ajuste o padding para aumentar o tamanho do botão */
-  text-align: center;
-  text-decoration: none;
-  display: block; /* Alterado para block para ocupar a largura total do contêiner */
-  font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
+  background-color: #333;
+  color: #fff;
   cursor: pointer;
-  border-radius: 12px;
+  position: absolute;
+  right: 135px; /* Ajuste a distância da borda direita conforme necessário */
+  top: 400px;
+  overflow: hidden;
+  outline: none;
+  border-radius: 50px;
   transition-duration: 0.4s;
 }
 
-.startButton:hover {
-  background-color: #45a049;
+.startButton::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50px;
+  background-color: transparent;
+  animation: rgbAnimation 3s infinite;
+}
+
+.dark-theme .startButton,
+.dark-theme #themeButton {
+  background-color: #111;
+  color: #fff;
+}
+
+.dark-theme {
+  color: #fff !important;
+  transition: color 2s;
 }
 
 .tempo-esgotado {
@@ -110,16 +133,115 @@
   }
 }
 
+button {
+  padding: 20px 40px;
+  font-size: 24px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  border-radius: 50px;
+  animation: wave 2s infinite;
+}
+
+#themeButton {
+  position: absolute;
+  top: 6px; /* Move o botão para baixo */
+  right: 0px;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  animation: themeButtonAnimation 1s infinite alternate; /* Altera a animação do botão */
+}
+
+@keyframes wave {
+  0% {
+    box-shadow: 0 0 10px red, 0 0 20px green, 0 0 30px blue;
+  }
+  50% {
+    box-shadow: 0 0 20px blue, 0 0 30px red, 0 0 40px green;
+  }
+  100% {
+    box-shadow: 0 0 30px green, 0 0 40px blue, 0 0 50px red;
+  }
+}
+
+@keyframes themeButtonAnimation {
+  0% {
+    background-color: #333;
+    color: #fff;
+  }
+  50% {
+    background-color: #fff;
+    color: #333;
+  }
+  100% {
+    background-color: #333;
+    color: #fff;
+  }
+}
+
+.dark-theme button,
+.dark-theme #themeButton {
+  background-color: #111;
+  color: #fff;
+}
+
+.dark-theme button::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50px;
+  background-color: transparent;
+  animation: rgbAnimation 3s infinite;
+}
+body {
+  color: #444;
+  transition: color 2s;
+}
+.dark-theme .temporizador {
+  color: #fff; /* Texto branco */
+  background-color: #111; /* Fundo escuro */
+  transition: color 2s;
+}
+
+
+@keyframes rgbAnimation {
+  0% {
+    box-shadow: 0 0 10px purple, 0 0 20px red, 0 0 30px green;
+  }
+  50% {
+    box-shadow: 0 0 20px green, 0 0 30px purple, 0 0 40px red;
+  }
+  100% {
+    box-shadow: 0 0 30px red, 0 0 40px green, 0 0 50px purple;
+  }
+}
 
   </style>
+
 </head>
 <body>
-    <p style="text-align:center;">Creator: Nicolas</p>
-<h1 class="rules" style="text-align:center;">REGRAS DO MATH GAME</h1>
+  <!-- Botão Alterar Tema da animação RGB -->
+  <button id="themeButton" class="startButton" onclick="alterarTema()">Alterar Tema</button>
+
+  <!-- Restante do código do jogo de matemática -->
+  <p style="text-align:center;">Creator: Nicolas</p>
+  <h1 class="rules" style="text-align:center;">REGRAS DO MATH GAME</h1>
   <p class="rules" style="text-align:center;">1 - QUANDO VOCÊ APERTAR EM INICIAR, TERÁ 5 SEGUNDOS PARA RESOLVER A EQUAÇÃO, CASO ELA SEJA RESPONDIDA CERTA, O SEU CONTADOR DE ACERTOS SERÁ ACRESCENTADO EM 1.</p>
   <p class="rules" style="text-align:center;">2 - TODA VEZ QUE VOCÊ ERRAR, O SEU CONTADOR DE DERROTAS SERÁ ACRESCENTADO EM 1.</p>
   <p class="rules" style="text-align:center;">3 - E CASO O TEMPO SE ESGOTE, O CONTADOR SERÁ ACRESCENTADO EM 5!!!</p>
-  <button class="startButton" id="startButton" onclick="mostrarTudo()">Iniciar</button>
+  <button id="startButton" class="startButton" onclick="mostrarTudo()">Iniciar</button>
   <h1 class="equation" id="equation" style="display: none;">undefined.</h1>
   <div id="c1" class="options c1" style="display: none;">undefined</div>
   <div id="c2" class="options c1" style="display: none;">undefined</div>
@@ -130,25 +252,37 @@
   <h2 class="contadorDerrotas" id="defeat" style="display: none;">ERROS: 0</h2>
   <p id="mensagemTempoEsgotado" class="tempo-esgotado" style="display: none;"></p>
   <p id="controlador" class="off" style="display: none;"></p>
+
   <script>
-function mostrarTudo() {
-  document.getElementById("equation").style.display = "block";
-  document.getElementById("c1").style.display = "block";
-  document.getElementById("c2").style.display = "block";
-  document.getElementById("c3").style.display = "block";
-  document.getElementById("c4").style.display = "block";
-  document.getElementById("temporizador").style.display = "block";
-  document.getElementById("win").style.display = "block";
-  document.getElementById("defeat").style.display = "block";
-  document.getElementById("controlador").style.display = "block";
-  
-  var elements = document.getElementsByClassName("rules");
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].style.display = "none"; // Esconde as regras
+    function alterarTema() {
+    const themeButton = document.getElementById("themeButton");
+    document.body.classList.toggle("dark-theme");
+    const isDarkTheme = document.body.classList.contains("dark-theme");
+    if (isDarkTheme) {
+      document.body.style.backgroundColor = "#111";
+    } else {
+      document.body.style.backgroundColor = "#f7f7f7";
+    }
   }
-  document.getElementById("startButton").style.display = "none"; // Esconde o botão "Iniciar"
-  playAgain();
-}
+
+  function mostrarTudo() {
+    document.getElementById("equation").style.display = "block";
+    document.getElementById("c1").style.display = "block";
+    document.getElementById("c2").style.display = "block";
+    document.getElementById("c3").style.display = "block";
+    document.getElementById("c4").style.display = "block";
+    document.getElementById("temporizador").style.display = "block";
+    document.getElementById("win").style.display = "block";
+    document.getElementById("defeat").style.display = "block";
+    document.getElementById("controlador").style.display = "block";
+    
+    var elements = document.getElementsByClassName("rules");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].style.display = "none"; // Esconde as regras
+    }
+    document.getElementById("startButton").style.display = "none"; // Esconde o botão "Iniciar"
+    playAgain();
+  }
 
 const controlador1 = document.querySelector("#controlador");
 let numeroAleatorio1 = 0;
@@ -188,6 +322,7 @@ function playAgain() {
 
   startTimer(); // Inicia o temporizador após gerar uma nova equação
 }
+
 let interval
 function startTimer() {
   var count = 5;
@@ -210,8 +345,6 @@ function startTimer() {
     }
   }, 1000);
 }
-
-
 
 function verificarResposta(e) {
   if (clickHabilitado) {
